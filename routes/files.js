@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const multer = require("multer");
-const path = require("path");
 const File = require("../models/file");
 const { v4: uuid4 } = require("uuid");
 
@@ -25,7 +24,7 @@ router.post("/", (req, res) => {
     if (err) {
       return res.status(500).send({ error: err.message });
     }
-    
+
     // store into database
     const file = new File({
       filename: req.file.filename,
@@ -36,11 +35,8 @@ router.post("/", (req, res) => {
     const response = await file.save();
     const files = await File.find();
     res.send(files);
-
   });
-
 });
-
 
 //get all files
 router.get("/allfiles", async (req, res) => {
@@ -48,7 +44,6 @@ router.get("/allfiles", async (req, res) => {
   console.log(files);
   res.send(files);
 });
-
 
 //delete files by uuid
 router.delete("/:uuid", async (req, res) => {
@@ -59,10 +54,15 @@ router.delete("/:uuid", async (req, res) => {
 });
 
 //delete all files
-router.delete("/",async(req,res)=>{
-  const response= await File.deleteMany({});
+router.delete("/", async (req, res) => {
+  const response = await File.deleteMany({});
   res.send(response);
-})
+});
 
+router.post("/usercheck", (req, res) => {
+  console.log(req.query);
+  console.log(req.header);
+  res.send(req.query);
+});
 
 module.exports = router;
