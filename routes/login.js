@@ -9,7 +9,6 @@ router.post("/", async (req, res) => {
   const decoded=req.body
   const { email, email_verified, name, picture } = decoded;
   const isUserExist =await UserLogin.findOne({email});
- console.log(isUserExist);
   if (isUserExist) {
     try {
       const storedToken = isUserExist.jwt_token;
@@ -39,40 +38,3 @@ router.delete("/", async (req, res) => {
 });
 
 module.exports = router;
-
-//router.post("/login", async (req, res) => {
-//  const { Username, Password } = req.body;
-//  const isUserExist = await getUserByName(Username);
-//  console.log(isUserExist);
-//
-//  if (isUserExist) {
-//    const storedDbPassword = isUserExist.Password;
-//    const isPasswordMatch = await bcrypt.compare(Password, storedDbPassword);
-//    console.log(isPasswordMatch);
-//    if (!isPasswordMatch) {
-//      res.status(400).send({ msg: "Invalid Credentials" });
-//      return;
-//    }
-//    if (isUserExist && isPasswordMatch) {
-//      res.send({ msg: "Sucessfull Login" });
-//    }
-//  } else {
-//    res.status(400).send({ msg: "Invalid Credentials" });
-//  }
-//});
-//
-//router.get("/", async (req, res) => {
-//  const users = await getUsers(req);
-//  res.send(users);
-//});
-//
-//export const userRoute = router;
-//
-//
-//
-//
-//
-//
-//
-//
-//module.exports = router;

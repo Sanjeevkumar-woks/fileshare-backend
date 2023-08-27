@@ -37,7 +37,6 @@ router.post("/", auth, (req, res) => {
      // share:`${process.env.APP_BASE_URL}/files/${uuid4()}`
     });
     const response = await file.save();
-    console.log(response);
     const files = await File.find({email});
     res.send(files);
   });
